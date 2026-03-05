@@ -1,0 +1,145 @@
+version: "3.8"
+
+services:
+  # -------------------------------------------------------
+  # SQL Server 2022 — Metadata database option 1
+  # -------------------------------------------------------
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: nodo-etl-sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: ${NODO_ETL_SQLSERVER_PASSWORD:-NodoEtl2026!}
+      MSSQL_PID: Developer
+    ports:
+      - "${NODO_ETL_SQLSERVER_PORT:-1433}:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+      - ./sqlserver/init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$${MSSQL_SA_PASSWORD}" -Q "SELECT 1" -C -b
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  # -------------------------------------------------------
+  # PostgreSQL 15 — Metadata database option 2
+  # -------------------------------------------------------
+  postgresql:
+    image: postgres:15-alpine
+    container_name: nodo-etl-postgresql
+    environment:
+      POSTGRES_USER: ${NODO_ETL_PG_USER:-nodo_etl}
+      POSTGRES_PASSWORD: ${NODO_ETL_PG_PASSWORD:-NodoEtl2026!}
+      POSTGRES_DB: ${NODO_ETL_PG_DB:-nodo_etl_db}
+      NODO_ETL_SCHEMA: ${NODO_ETL_SCHEMA:-nodo_etl}
+    ports:
+      - "${NODO_ETL_PG_PORT:-5433}:5432"
+    volumes:
+      - postgresql_data:/var/lib/postgresql/data
+      - ./postgresql/init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: pg_isready -U ${NODO_ETL_PG_USER:-nodo_etl}
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  # -------------------------------------------------------
+  # Airflow metadata database (separate from ETL metadata)
+  # -------------------------------------------------------
+  airflow-db:
+    image: postgres:15-alpine
+    container_name: nodo-etl-airflow-db
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    volumes:
+      - airflow_db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: pg_isready -U airflow
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  # -------------------------------------------------------
+  # Airflow Webserver
+  # -------------------------------------------------------
+  airflow-webserver:
+    build:
+      context: ./airflow
+      dockerfile: Dockerfile
+    container_name: nodo-etl-airflow-webserver
+    command: >
+      bash -c "
+        airflow db migrate &&
+        airflow users create --username admin --password admin --firstname Admin --lastname User --role Admin --email admin@nodoetl.local || true &&
+        airflow webserver
+      "
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-db:5432/airflow
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__CORE__DAGS_FOLDER: /opt/airflow/dags
+      AIRFLOW__WEBSERVER__SECRET_KEY: nodo-etl-secret-key-change-in-prod
+      # ETL metadata connection info (passed to DAGs)
+      NODO_ETL_DB_TYPE: ${NODO_ETL_DB_TYPE:-postgresql}
+      NODO_ETL_DB_HOST: ${NODO_ETL_AIRFLOW_DB_HOST:-postgresql}
+      NODO_ETL_DB_PORT: "5432"
+      NODO_ETL_DB_NAME: ${NODO_ETL_PG_DB:-nodo_etl_db}
+      NODO_ETL_DB_USER: ${NODO_ETL_PG_USER:-nodo_etl}
+      NODO_ETL_DB_PASSWORD: ${NODO_ETL_PG_PASSWORD:-NodoEtl2026!}
+      NODO_ETL_SCHEMA: ${NODO_ETL_SCHEMA:-nodo_etl}
+      NODO_ETL_ENVIRONMENT: ${NODO_ETL_ENVIRONMENT:-dev}
+    ports:
+      - "${NODO_ETL_AIRFLOW_PORT:-8080}:8080"
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+    depends_on:
+      airflow-db:
+        condition: service_healthy
+      postgresql:
+        condition: service_healthy
+    healthcheck:
+      test: curl -f http://localhost:8080/health || exit 1
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
+
+  # -------------------------------------------------------
+  # Airflow Scheduler
+  # -------------------------------------------------------
+  airflow-scheduler:
+    build:
+      context: ./airflow
+      dockerfile: Dockerfile
+    container_name: nodo-etl-airflow-scheduler
+    command: airflow scheduler
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-db:5432/airflow
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__CORE__DAGS_FOLDER: /opt/airflow/dags
+      AIRFLOW__WEBSERVER__SECRET_KEY: nodo-etl-secret-key-change-in-prod
+      NODO_ETL_DB_TYPE: ${NODO_ETL_DB_TYPE:-postgresql}
+      NODO_ETL_DB_HOST: ${NODO_ETL_AIRFLOW_DB_HOST:-postgresql}
+      NODO_ETL_DB_PORT: "5432"
+      NODO_ETL_DB_NAME: ${NODO_ETL_PG_DB:-nodo_etl_db}
+      NODO_ETL_DB_USER: ${NODO_ETL_PG_USER:-nodo_etl}
+      NODO_ETL_DB_PASSWORD: ${NODO_ETL_PG_PASSWORD:-NodoEtl2026!}
+      NODO_ETL_SCHEMA: ${NODO_ETL_SCHEMA:-nodo_etl}
+      NODO_ETL_ENVIRONMENT: ${NODO_ETL_ENVIRONMENT:-dev}
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+    depends_on:
+      airflow-db:
+        condition: service_healthy
+      postgresql:
+        condition: service_healthy
+
+volumes:
+  sqlserver_data:
+  postgresql_data:
+  airflow_db_data:

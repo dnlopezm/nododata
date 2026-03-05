@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nodo-etl"
+version = "1.0.0"
+description = "Metadata-driven ETL framework for orchestrating data pipelines"
+readme = "README.md"
+requires-python = ">=3.12"
+license = {text = "MIT"}
+authors = [
+    {name = "dnlopezm", email = "dalopezmartinez@gmail.com"},
+]
+
+dependencies = [
+    "click>=8.1",
+    "pydantic>=2.5",
+    "pydantic-settings>=2.1",
+    "sqlalchemy>=2.0",
+    "pyodbc>=5.0",
+    "psycopg2-binary>=2.9",
+    "python-dotenv>=1.0",
+    "rich>=13.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4",
+    "pytest-cov>=4.1",
+    "pytest-asyncio>=0.23",
+    "docker>=7.0",
+    "httpx>=0.25",
+]
+
+[project.scripts]
+nodo-etl = "nodo_etl.cli.main:cli"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "unit: Unit tests (no external dependencies)",
+    "integration: Integration tests (requires database)",
+    "e2e: End-to-end tests (requires Docker environment)",
+    "sqlserver: Tests specific to SQL Server",
+    "postgresql: Tests specific to PostgreSQL",
+]

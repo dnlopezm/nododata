@@ -1362,18 +1362,18 @@ All CLI tests use Click's `CliRunner` with mocked repositories.
 ---
 
 ### Phase E6: Airflow Orchestration
-**Status:** Not Started
+**Status:** Complete
 **Goal:** Build Airflow DAGs that read the metadata database and orchestrate pipeline execution.
 
 #### E6.1 — Airflow DAG: Process Scheduler
-- [ ] Create `docker/airflow/dags/nodo_etl_orchestrator.py`:
+- [x] Create `docker/airflow/dags/nodo_etl_orchestrator.py`:
   - DAG that runs on a short interval (e.g., every 5 minutes)
   - Calls `sp_get_scheduled_processes` to find due processes
   - For each due process, triggers a process execution DAG run
-- [ ] Configure Airflow connection to metadata database
+- [x] Configure Airflow connection to metadata database
 
 #### E6.2 — Airflow DAG: Process Executor
-- [ ] Create `docker/airflow/dags/nodo_etl_process_executor.py`:
+- [x] Create `docker/airflow/dags/nodo_etl_process_executor.py`:
   - Receives process_id and environment as parameters
   - Calls `sp_start_process_execution`
   - Gets jobs via `sp_get_jobs_to_execute`
@@ -1395,17 +1395,17 @@ All CLI tests use Click's `CliRunner` with mocked repositories.
   - Calls `sp_complete_process_execution`
 
 #### E6.3 — Airflow DAG: Single Entity Executor
-- [ ] Create `docker/airflow/dags/nodo_etl_single_executor.py`:
+- [x] Create `docker/airflow/dags/nodo_etl_single_executor.py`:
   - Supports running a single process, job, or dataset
   - Triggered manually via Airflow UI or CLI
   - Same execution lifecycle as process executor but scoped
 
 #### E6.4 — Hook Executor
-- [ ] Create hook execution logic:
+- [x] Create hook execution logic:
   - SQL hooks: execute query against the hook's configured connection
   - API hooks: make HTTP request with configured URL/method/body
   - Command hooks: execute shell command
-- [ ] Respect hook execution_order and on_status filter
+- [x] Respect hook execution_order and on_status filter
 
 #### E6.5 — Tests: Airflow Orchestration (`tests/e2e/`)
 

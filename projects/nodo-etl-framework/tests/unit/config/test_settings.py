@@ -49,7 +49,12 @@ class TestSettingsFromEnv:
         assert s.sqlserver_host == "db.example.com"
         assert s.sqlserver_port == 1434
 
-    def test_load_from_env_file(self):
+    def test_load_from_env_file(self, monkeypatch):
+        # Ensure no env vars interfere with .env file loading
+        for key in list(os.environ):
+            if key.startswith("NODO_ETL_"):
+                monkeypatch.delenv(key)
+
         with tempfile.NamedTemporaryFile(mode="w", suffix=".env", delete=False) as f:
             f.write("NODO_ETL_DB_TYPE=postgresql\n")
             f.write("NODO_ETL_ENVIRONMENT=staging\n")

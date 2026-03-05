@@ -1205,148 +1205,148 @@ All tests run against both SQL Server and PostgreSQL (parameterized).
 ---
 
 ### Phase E5: Python CLI
-**Status:** Not Started
+**Status:** Complete
 **Goal:** Build the CLI tool for managing ETL metadata.
 
 #### E5.1 — CLI Framework Setup
-- [ ] Create `src/nodo_etl/cli/main.py`:
+- [x] Create `src/nodo_etl/cli/main.py`:
   - Click group with global options: `--env`, `--db-type`, `--config`
   - Version command
   - Initialize settings on startup
-- [ ] Register as console script in pyproject.toml: `nodo-etl`
+- [x] Register as console script in pyproject.toml: `nodo-etl`
 
 #### E5.2 — Connection Commands
-- [ ] `nodo-etl connection create` — Interactive or flag-based connection creation
-- [ ] `nodo-etl connection list` — List all connections (filterable by type, environment)
-- [ ] `nodo-etl connection get <id>` — Show connection details (mask secrets)
-- [ ] `nodo-etl connection update <id>` — Update connection fields
-- [ ] `nodo-etl connection delete <id>` — Soft delete
-- [ ] `nodo-etl connection test <id>` — Test connectivity
+- [x] `nodo-etl connection create` — Interactive or flag-based connection creation
+- [x] `nodo-etl connection list` — List all connections (filterable by type, environment)
+- [x] `nodo-etl connection get <id>` — Show connection details (mask secrets)
+- [x] `nodo-etl connection update <id>` — Update connection fields
+- [x] `nodo-etl connection delete <id>` — Soft delete
+- [x] `nodo-etl connection test <id>` — Test connectivity
 
 #### E5.3 — Process Commands
-- [ ] `nodo-etl process create` — Create process with schedules
-- [ ] `nodo-etl process list` — List all processes (filterable by enabled, tags)
-- [ ] `nodo-etl process get <id>` — Show process with jobs, datasets, schedules
-- [ ] `nodo-etl process update <id>` — Update process fields
-- [ ] `nodo-etl process delete <id>` — Soft delete (cascades to jobs/datasets)
-- [ ] `nodo-etl process enable/disable <id>` — Toggle enabled flag
+- [x] `nodo-etl process create` — Create process with schedules
+- [x] `nodo-etl process list` — List all processes (filterable by enabled, tags)
+- [x] `nodo-etl process get <id>` — Show process with jobs, datasets, schedules
+- [x] `nodo-etl process update <id>` — Update process fields
+- [x] `nodo-etl process delete <id>` — Soft delete (cascades to jobs/datasets)
+- [x] `nodo-etl process enable/disable <id>` — Toggle enabled flag
 
 #### E5.4 — Job Commands
-- [ ] `nodo-etl job create` — Create job under a process
-- [ ] `nodo-etl job list --process-id <id>` — List jobs for a process
-- [ ] `nodo-etl job get <id>` — Show job with datasets
-- [ ] `nodo-etl job update <id>` — Update job fields
-- [ ] `nodo-etl job delete <id>` — Soft delete
-- [ ] `nodo-etl job enable/disable <id>` — Toggle enabled flag
+- [x] `nodo-etl job create` — Create job under a process
+- [x] `nodo-etl job list --process-id <id>` — List jobs for a process
+- [x] `nodo-etl job get <id>` — Show job with datasets
+- [x] `nodo-etl job update <id>` — Update job fields
+- [x] `nodo-etl job delete <id>` — Soft delete
+- [x] `nodo-etl job enable/disable <id>` — Toggle enabled flag
 
 #### E5.5 — Dataset Commands
-- [ ] `nodo-etl dataset create` — Create dataset with source config
-- [ ] `nodo-etl dataset list --job-id <id>` — List datasets for a job
-- [ ] `nodo-etl dataset get <id>` — Show dataset with source config
-- [ ] `nodo-etl dataset update <id>` — Update dataset fields
-- [ ] `nodo-etl dataset delete <id>` — Soft delete
-- [ ] `nodo-etl dataset enable/disable <id>` — Toggle enabled flag
+- [x] `nodo-etl dataset create` — Create dataset with source config
+- [x] `nodo-etl dataset list --job-id <id>` — List datasets for a job
+- [x] `nodo-etl dataset get <id>` — Show dataset with source config
+- [x] `nodo-etl dataset update <id>` — Update dataset fields
+- [x] `nodo-etl dataset delete <id>` — Soft delete
+- [x] `nodo-etl dataset enable/disable <id>` — Toggle enabled flag
 
 #### E5.6 — Execution Commands
-- [ ] `nodo-etl run process <id>` — Trigger a full process execution (calls SP)
-- [ ] `nodo-etl run job <id>` — Trigger a single job execution
-- [ ] `nodo-etl run dataset <id>` — Trigger a single dataset execution
-- [ ] `nodo-etl status <process-execution-id>` — Show execution summary (calls SP)
-- [ ] `nodo-etl history --process-id <id>` — Show execution history
-- [ ] `nodo-etl retry <job-execution-id>` — Retry failed datasets (calls SP)
+- [x] `nodo-etl run process <id>` — Trigger a full process execution (calls SP)
+- [x] `nodo-etl run job <id>` — Trigger a single job execution
+- [x] `nodo-etl run dataset <id>` — Trigger a single dataset execution
+- [x] `nodo-etl status <process-execution-id>` — Show execution summary (calls SP)
+- [x] `nodo-etl history --process-id <id>` — Show execution history
+- [x] `nodo-etl retry <job-execution-id>` — Retry failed datasets (calls SP)
 
 #### E5.7 — Utility Commands
-- [ ] `nodo-etl config list` — Show system config values
-- [ ] `nodo-etl config set <key> <value>` — Update system config
-- [ ] `nodo-etl tag add <entity-type> <id> <key> <value>` — Add tag
-- [ ] `nodo-etl tag list <entity-type> <id>` — List tags
-- [ ] `nodo-etl hook add` — Add pre/post hook
-- [ ] `nodo-etl hook list <entity-type> <id>` — List hooks
-- [ ] `nodo-etl lineage add <source-id> <target-id>` — Add lineage
-- [ ] `nodo-etl lineage show <dataset-id>` — Show upstream/downstream lineage
+- [x] `nodo-etl config list` — Show system config values
+- [x] `nodo-etl config set <key> <value>` — Update system config
+- [x] `nodo-etl tag add <entity-type> <id> <key> <value>` — Add tag
+- [x] `nodo-etl tag list <entity-type> <id>` — List tags
+- [x] `nodo-etl hook add` — Add pre/post hook
+- [x] `nodo-etl hook list <entity-type> <id>` — List hooks
+- [x] `nodo-etl lineage add <source-id> <target-id>` — Add lineage
+- [x] `nodo-etl lineage show <dataset-id>` — Show upstream/downstream lineage
 
 #### E5.8 — Tests: CLI Unit Tests (`tests/unit/cli/`)
 
 All CLI tests use Click's `CliRunner` with mocked repositories.
 
 **`test_connection_commands.py`**:
-- [ ] Test `connection create` with all flags → calls repository.create, shows success message
-- [ ] Test `connection create` with missing required flag → shows error
-- [ ] Test `connection create` with invalid connection_type → shows error
-- [ ] Test `connection list` → shows table of connections
-- [ ] Test `connection list --type sqlserver` → shows only sqlserver connections
-- [ ] Test `connection list --environment prod` → shows only prod connections
-- [ ] Test `connection list` with no connections → shows "no connections found"
-- [ ] Test `connection get 1` → shows connection details
-- [ ] Test `connection get 999` → shows "not found" error
-- [ ] Test `connection get` masks secret_reference in output
-- [ ] Test `connection update 1 --host new-host` → calls repository.update
-- [ ] Test `connection delete 1` → calls repository.delete (soft), shows confirmation
-- [ ] Test `connection test 1` → calls repository.test_connection, shows result
+- [x] Test `connection create` with all flags → calls repository.create, shows success message
+- [x] Test `connection create` with missing required flag → shows error
+- [x] Test `connection create` with invalid connection_type → shows error
+- [x] Test `connection list` → shows table of connections
+- [x] Test `connection list --type sqlserver` → shows only sqlserver connections
+- [x] Test `connection list --environment prod` → shows only prod connections
+- [x] Test `connection list` with no connections → shows "no connections found"
+- [x] Test `connection get 1` → shows connection details
+- [x] Test `connection get 999` → shows "not found" error
+- [x] Test `connection get` masks secret_reference in output
+- [x] Test `connection update 1 --host new-host` → calls repository.update
+- [x] Test `connection delete 1` → calls repository.delete (soft), shows confirmation
+- [x] Test `connection test 1` → calls repository.test_connection, shows result
 
 **`test_process_commands.py`**:
-- [ ] Test `process create --name finance_etl --description "..."` → success
-- [ ] Test `process create` with schedule flags → creates process + schedule
-- [ ] Test `process create` with duplicate name → shows error
-- [ ] Test `process list` → shows table with name, enabled status, schedule count
-- [ ] Test `process list --enabled` → filters enabled only
-- [ ] Test `process list --tag domain=finance` → filters by tag
-- [ ] Test `process get 1` → shows process details with jobs, datasets, schedules tree
-- [ ] Test `process get 999` → shows "not found"
-- [ ] Test `process update 1 --max-parallelism 10` → success
-- [ ] Test `process delete 1` → soft deletes with confirmation prompt
-- [ ] Test `process enable 1` → sets is_enabled=true
-- [ ] Test `process disable 1` → sets is_enabled=false
+- [x] Test `process create --name finance_etl --description "..."` → success
+- [x] Test `process create` with schedule flags → creates process + schedule
+- [x] Test `process create` with duplicate name → shows error
+- [x] Test `process list` → shows table with name, enabled status, schedule count
+- [x] Test `process list --enabled` → filters enabled only
+- [x] Test `process list --tag domain=finance` → filters by tag
+- [x] Test `process get 1` → shows process details with jobs, datasets, schedules tree
+- [x] Test `process get 999` → shows "not found"
+- [x] Test `process update 1 --max-parallelism 10` → success
+- [x] Test `process delete 1` → soft deletes with confirmation prompt
+- [x] Test `process enable 1` → sets is_enabled=true
+- [x] Test `process disable 1` → sets is_enabled=false
 
 **`test_job_commands.py`**:
-- [ ] Test `job create --process-id 1 --name bronze_ingestion --order 1` → success
-- [ ] Test `job create` with invalid process-id → shows error
-- [ ] Test `job create` with duplicate name under same process → shows error
-- [ ] Test `job list --process-id 1` → shows jobs ordered by execution_order
-- [ ] Test `job list` without process-id → shows error (required)
-- [ ] Test `job get 1` → shows job with datasets list
-- [ ] Test `job update 1 --order 2` → success
-- [ ] Test `job delete 1` → soft deletes job and its datasets
-- [ ] Test `job enable/disable 1` → toggles is_enabled
+- [x] Test `job create --process-id 1 --name bronze_ingestion --order 1` → success
+- [x] Test `job create` with invalid process-id → shows error
+- [x] Test `job create` with duplicate name under same process → shows error
+- [x] Test `job list --process-id 1` → shows jobs ordered by execution_order
+- [x] Test `job list` without process-id → shows error (required)
+- [x] Test `job get 1` → shows job with datasets list
+- [x] Test `job update 1 --order 2` → success
+- [x] Test `job delete 1` → soft deletes job and its datasets
+- [x] Test `job enable/disable 1` → toggles is_enabled
 
 **`test_dataset_commands.py`**:
-- [ ] Test `dataset create` with source_type=database and db config flags → creates dataset + db_config
-- [ ] Test `dataset create` with source_type=file and file config flags → creates dataset + file_config
-- [ ] Test `dataset create` with source_type=api and api config flags → creates dataset + api_config
-- [ ] Test `dataset create` with source_type=stream and stream config flags → creates dataset + stream_config
-- [ ] Test `dataset create` with mismatched source_type and config → shows error
-- [ ] Test `dataset create` with invalid load_strategy → shows error
-- [ ] Test `dataset create` with invalid layer → shows error
-- [ ] Test `dataset list --job-id 1` → shows datasets ordered
-- [ ] Test `dataset get 1` → shows dataset with source config details
-- [ ] Test `dataset update 1 --load-strategy incremental` → success
-- [ ] Test `dataset delete 1` → soft delete
-- [ ] Test `dataset enable/disable 1` → toggles
+- [x] Test `dataset create` with source_type=database and db config flags → creates dataset + db_config
+- [x] Test `dataset create` with source_type=file and file config flags → creates dataset + file_config
+- [x] Test `dataset create` with source_type=api and api config flags → creates dataset + api_config
+- [x] Test `dataset create` with source_type=stream and stream config flags → creates dataset + stream_config
+- [x] Test `dataset create` with mismatched source_type and config → shows error
+- [x] Test `dataset create` with invalid load_strategy → shows error
+- [x] Test `dataset create` with invalid layer → shows error
+- [x] Test `dataset list --job-id 1` → shows datasets ordered
+- [x] Test `dataset get 1` → shows dataset with source config details
+- [x] Test `dataset update 1 --load-strategy incremental` → success
+- [x] Test `dataset delete 1` → soft delete
+- [x] Test `dataset enable/disable 1` → toggles
 
 **`test_execution_commands.py`**:
-- [ ] Test `run process 1` → calls start_process_execution, shows execution_id
-- [ ] Test `run process 999` → shows "process not found"
-- [ ] Test `run job 1` → calls start_job_execution
-- [ ] Test `run dataset 1` → calls start_dataset_execution
-- [ ] Test `status 1` → calls get_execution_summary, shows formatted table
-- [ ] Test `status 999` → shows "execution not found"
-- [ ] Test `history --process-id 1` → shows execution history list
-- [ ] Test `history --process-id 1 --limit 5` → shows last 5 executions
-- [ ] Test `retry 1` → calls retry_failed_datasets, shows retryable datasets
-- [ ] Test `retry 1` with no failed datasets → shows "nothing to retry"
+- [x] Test `run process 1` → calls start_process_execution, shows execution_id
+- [x] Test `run process 999` → shows "process not found"
+- [x] Test `run job 1` → calls start_job_execution
+- [x] Test `run dataset 1` → calls start_dataset_execution
+- [x] Test `status 1` → calls get_execution_summary, shows formatted table
+- [x] Test `status 999` → shows "execution not found"
+- [x] Test `history --process-id 1` → shows execution history list
+- [x] Test `history --process-id 1 --limit 5` → shows last 5 executions
+- [x] Test `retry 1` → calls retry_failed_datasets, shows retryable datasets
+- [x] Test `retry 1` with no failed datasets → shows "nothing to retry"
 
 **`test_utility_commands.py`**:
-- [ ] Test `config list` → shows all system config entries
-- [ ] Test `config set timezone UTC` → updates system config
-- [ ] Test `config set invalid_key value` → success (allows custom keys)
-- [ ] Test `tag add process 1 domain finance` → adds tag
-- [ ] Test `tag add` with invalid entity_type → shows error
-- [ ] Test `tag list process 1` → shows tags
-- [ ] Test `hook add` with all flags → creates hook
-- [ ] Test `hook list process 1` → shows hooks
-- [ ] Test `lineage add 1 2` → creates lineage link
-- [ ] Test `lineage add 1 1` → shows error (self-reference)
-- [ ] Test `lineage show 1` → shows upstream and downstream
+- [x] Test `config list` → shows all system config entries
+- [x] Test `config set timezone UTC` → updates system config
+- [x] Test `config set invalid_key value` → success (allows custom keys)
+- [x] Test `tag add process 1 domain finance` → adds tag
+- [x] Test `tag add` with invalid entity_type → shows error
+- [x] Test `tag list process 1` → shows tags
+- [x] Test `hook add` with all flags → creates hook
+- [x] Test `hook list process 1` → shows hooks
+- [x] Test `lineage add 1 2` → creates lineage link
+- [x] Test `lineage add 1 1` → shows error (self-reference)
+- [x] Test `lineage show 1` → shows upstream and downstream
 
 #### E5.9 — Tests: CLI Integration (`tests/integration/cli/`)
 

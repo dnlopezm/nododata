@@ -860,59 +860,59 @@ All stored procedures created for both SQL Server and PostgreSQL.
 ---
 
 ### Phase E3: Stored Procedures
-**Status:** Not Started
+**Status:** Complete
 **Goal:** Create all stored procedures for both SQL Server and PostgreSQL.
 
 #### E3.1 — Process Execution SPs
-- [ ] `V6__sp_start_process_execution.sql`
+- [x] `V6__sp_start_process_execution.sql`
   - Input: process_id, environment, triggered_by, parameters (optional)
   - Creates process_execution (status=running)
   - Creates job_execution records for all enabled, non-deleted jobs (status=pending)
   - Creates dataset_execution records for all enabled, non-deleted datasets (status=pending)
   - Returns: process_execution_id
-- [ ] `V7__sp_complete_process_execution.sql`
+- [x] `V7__sp_complete_process_execution.sql`
   - Input: process_execution_id
   - Computes totals from job_execution records
   - Sets status: success (all jobs success), failed (any job failed), cancelled
   - Sets end_time
 
 #### E3.2 — Job Execution SPs
-- [ ] `V8__sp_start_job_execution.sql`
+- [x] `V8__sp_start_job_execution.sql`
   - Input: job_execution_id
   - Updates status=running, start_time=now
-- [ ] `V9__sp_complete_job_execution.sql`
+- [x] `V9__sp_complete_job_execution.sql`
   - Input: job_execution_id
   - Computes totals from dataset_execution records
   - Sets status based on dataset results
   - Sets end_time
 
 #### E3.3 — Dataset Execution SPs
-- [ ] `V10__sp_start_dataset_execution.sql`
+- [x] `V10__sp_start_dataset_execution.sql`
   - Input: dataset_execution_id
   - Updates status=running, start_time=now
-- [ ] `V11__sp_complete_dataset_execution.sql`
+- [x] `V11__sp_complete_dataset_execution.sql`
   - Input: dataset_execution_id, status, rows_read, rows_written, rows_errored, bytes_processed, error_message
   - Updates all fields, computes duration
   - If status=success and load_strategy=incremental: update etl_watermark
 
 #### E3.4 — Query SPs
-- [ ] `V12__sp_get_scheduled_processes.sql`
+- [x] `V12__sp_get_scheduled_processes.sql`
   - Returns enabled processes with active cron schedules matching current time
-- [ ] `V13__sp_get_jobs_to_execute.sql`
+- [x] `V13__sp_get_jobs_to_execute.sql`
   - Input: process_execution_id
   - Returns pending jobs ordered by execution_order
   - Considers max_parallelism from process
-- [ ] `V14__sp_get_datasets_to_execute.sql`
+- [x] `V14__sp_get_datasets_to_execute.sql`
   - Input: job_execution_id
   - Returns pending datasets ordered by execution_order
   - Considers max_parallelism from job
-- [ ] `V15__sp_get_execution_summary.sql`
+- [x] `V15__sp_get_execution_summary.sql`
   - Joins all execution tables with metadata tables
   - Filters: process_id, environment, date range, status
   - Returns: process name, job name, dataset name, source type, layer, load strategy, all execution details
 
 #### E3.5 — Retry SPs
-- [ ] `V16__sp_retry_failed_datasets.sql`
+- [x] `V16__sp_retry_failed_datasets.sql`
   - Input: job_execution_id
   - Finds failed datasets where retry_count < max_retries (resolves from dataset → job → process → system_config)
   - Resets status=pending, increments retry_count

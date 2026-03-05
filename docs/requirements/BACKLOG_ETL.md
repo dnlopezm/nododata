@@ -1482,11 +1482,11 @@ All E2E tests run against Docker (Airflow + metadata DB).
 ---
 
 ### Phase E7: Integration Testing & Sample Data
-**Status:** Not Started
+**Status:** Complete
 **Goal:** End-to-end testing with realistic sample data and documentation.
 
 #### E7.1 — Sample Metadata
-- [ ] Create seed scripts with a complete example:
+- [x] Create seed scripts with a complete example:
   - **Process:** `finance_etl` (enabled, cron: daily at 6am)
   - **Connections:** source DB (PostgreSQL), target storage
   - **Job 1:** `bronze_ingestion` (order=1, parallelism=3)

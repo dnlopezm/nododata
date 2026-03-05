@@ -1016,36 +1016,36 @@ All tests run against both SQL Server and PostgreSQL (parameterized).
 ---
 
 ### Phase E4: Python Core — Database Layer & Secret Provider
-**Status:** Not Started
+**Status:** Complete
 **Goal:** Build the Python core: database connection, repositories, and secret provider abstraction.
 
 #### E4.1 — Secret Provider
-- [ ] Create `src/nodo_etl/secrets/base.py`:
+- [x] Create `src/nodo_etl/secrets/base.py`:
   - `SecretProvider` abstract class with `get_secret(reference: str) -> str`
-- [ ] Create `src/nodo_etl/secrets/env_provider.py`:
+- [x] Create `src/nodo_etl/secrets/env_provider.py`:
   - Reads secrets from environment variables
   - `secret_reference` = env var name
-- [ ] Create `src/nodo_etl/secrets/factory.py`:
+- [x] Create `src/nodo_etl/secrets/factory.py`:
   - `get_provider(provider_type: str) -> SecretProvider`
   - Defaults to system_config `secret_provider` if not specified
-- [ ] Unit tests for secret providers
+- [x] Unit tests for secret providers
 
 #### E4.2 — Database Connection Layer
-- [ ] Create `src/nodo_etl/db/dialect.py`:
+- [x] Create `src/nodo_etl/db/dialect.py`:
   - Abstract SQL dialect to handle SQL Server vs PostgreSQL differences
   - Schema-qualified table names
   - Data type mappings
   - JSON field handling (NVARCHAR(MAX) vs JSONB)
-- [ ] Create `src/nodo_etl/db/connection.py`:
+- [x] Create `src/nodo_etl/db/connection.py`:
   - `MetadataDBConnection` class using SQLAlchemy
   - Reads connection config from settings
   - Uses secret provider for credentials
   - Connection pooling
   - Schema-aware queries
-- [ ] Unit tests for connection and dialect
+- [x] Unit tests for connection and dialect
 
 #### E4.3 — Repository Layer
-- [ ] Create `src/nodo_etl/db/repositories.py`:
+- [x] Create `src/nodo_etl/db/repositories.py`:
   - `ProcessRepository` — CRUD for etl_process + etl_schedule
   - `JobRepository` — CRUD for etl_job
   - `DatasetRepository` — CRUD for etl_dataset + source config tables
@@ -1062,42 +1062,42 @@ All tests run against both SQL Server and PostgreSQL (parameterized).
 #### E4.4 — Tests: Secret Provider (`tests/unit/secrets/`)
 
 **`test_env_provider.py`**:
-- [ ] Test get_secret with existing env var → returns value
-- [ ] Test get_secret with non-existent env var → raises SecretNotFoundError
-- [ ] Test get_secret with empty env var value → returns empty string (or error, define behavior)
-- [ ] Test get_secret with special characters in value → returns correctly
-- [ ] Test get_secret reference name is case-sensitive
-- [ ] Test provider type identifier returns "env"
+- [x] Test get_secret with existing env var → returns value
+- [x] Test get_secret with non-existent env var → raises SecretNotFoundError
+- [x] Test get_secret with empty env var value → returns empty string (or error, define behavior)
+- [x] Test get_secret with special characters in value → returns correctly
+- [x] Test get_secret reference name is case-sensitive
+- [x] Test provider type identifier returns "env"
 
 **`test_factory.py`**:
-- [ ] Test get_provider("env") → returns EnvSecretProvider instance
-- [ ] Test get_provider("keyvault") → raises NotImplementedError (not yet implemented)
-- [ ] Test get_provider("aws_sm") → raises NotImplementedError
-- [ ] Test get_provider("airflow") → raises NotImplementedError
-- [ ] Test get_provider("invalid") → raises ValueError
-- [ ] Test get_provider(None) → uses system_config default provider
-- [ ] Test factory caches providers (returns same instance for same type)
+- [x] Test get_provider("env") → returns EnvSecretProvider instance
+- [x] Test get_provider("keyvault") → raises NotImplementedError (not yet implemented)
+- [x] Test get_provider("aws_sm") → raises NotImplementedError
+- [x] Test get_provider("airflow") → raises NotImplementedError
+- [x] Test get_provider("invalid") → raises ValueError
+- [x] Test get_provider(None) → uses system_config default provider
+- [x] Test factory caches providers (returns same instance for same type)
 
 #### E4.5 — Tests: Database Connection (`tests/unit/db/`)
 
 **`test_dialect.py`**:
-- [ ] Test PostgreSQL dialect generates correct schema-qualified table name (e.g., `nodo_etl.etl_process`)
-- [ ] Test SQL Server dialect generates correct schema-qualified table name (e.g., `nodo_etl.etl_process`)
-- [ ] Test PostgreSQL dialect maps JSON type to JSONB
-- [ ] Test SQL Server dialect maps JSON type to NVARCHAR(MAX)
-- [ ] Test PostgreSQL dialect maps BOOLEAN correctly
-- [ ] Test SQL Server dialect maps BOOLEAN to BIT
-- [ ] Test dialect factory returns correct dialect for "postgresql"
-- [ ] Test dialect factory returns correct dialect for "sqlserver"
-- [ ] Test dialect factory raises error for unsupported type
+- [x] Test PostgreSQL dialect generates correct schema-qualified table name (e.g., `nodo_etl.etl_process`)
+- [x] Test SQL Server dialect generates correct schema-qualified table name (e.g., `nodo_etl.etl_process`)
+- [x] Test PostgreSQL dialect maps JSON type to JSONB
+- [x] Test SQL Server dialect maps JSON type to NVARCHAR(MAX)
+- [x] Test PostgreSQL dialect maps BOOLEAN correctly
+- [x] Test SQL Server dialect maps BOOLEAN to BIT
+- [x] Test dialect factory returns correct dialect for "postgresql"
+- [x] Test dialect factory returns correct dialect for "sqlserver"
+- [x] Test dialect factory raises error for unsupported type
 
 **`test_connection.py`** (mocked):
-- [ ] Test connection string built correctly for PostgreSQL
-- [ ] Test connection string built correctly for SQL Server
-- [ ] Test connection uses secret provider to resolve password
-- [ ] Test connection uses settings for host/port/database
-- [ ] Test connection pool size is configurable
-- [ ] Test connection raises error when database is unreachable (mocked)
+- [x] Test connection string built correctly for PostgreSQL
+- [x] Test connection string built correctly for SQL Server
+- [x] Test connection uses secret provider to resolve password
+- [x] Test connection uses settings for host/port/database
+- [x] Test connection pool size is configurable
+- [x] Test connection raises error when database is unreachable (mocked)
 
 #### E4.6 — Tests: Repositories (`tests/integration/db/`)
 

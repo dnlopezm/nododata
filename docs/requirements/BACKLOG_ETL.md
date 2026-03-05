@@ -1595,9 +1595,9 @@ All scenarios run against both SQL Server and PostgreSQL.
   - Architecture overview
   - Configuration reference
   - CLI command reference
-- [x] Create `docs/guidelines/PYTHON.md` with coding conventions
-- [x] Create `docs/reference/ETL_CLI.md` with CLI documentation
-- [x] Create `docs/reference/ETL_DATABASE.md` with schema reference
+- [ ] Create `docs/guidelines/PYTHON.md` with coding conventions
+- [ ] Create `docs/reference/ETL_CLI.md` with CLI documentation
+- [ ] Create `docs/reference/ETL_DATABASE.md` with schema reference
 - [x] Update master BACKLOG.md with progress
 
 ---
@@ -1605,69 +1605,69 @@ All scenarios run against both SQL Server and PostgreSQL.
 ## Future Phases (Deferred)
 
 ### Phase E8: Target Configuration & Column Mapping
-- [x] Design and create `etl_dataset_target_config` table
-- [x] Design and create `etl_dataset_column_mapping` table
-- [x] Implement target-specific loading logic (upsert, merge, overwrite)
-- [x] Column mapping resolution in transformation code
+- [ ] Design and create `etl_dataset_target_config` table
+- [ ] Design and create `etl_dataset_column_mapping` table
+- [ ] Implement target-specific loading logic (upsert, merge, overwrite)
+- [ ] Column mapping resolution in transformation code
 
 ### Phase E9: DDL Generation
-- [x] Connect to transactional databases, extract metadata
-- [x] Auto-generate bronze DDLs (mirror source schema)
-- [x] Auto-generate silver DDLs (cleaned, typed, standardized)
-- [x] Auto-generate gold DDLs (aggregated, business-ready)
-- [x] Support Databricks (Delta tables) and Snowflake
-- [x] Handle schema drift detection and alerts
+- [ ] Connect to transactional databases, extract metadata
+- [ ] Auto-generate bronze DDLs (mirror source schema)
+- [ ] Auto-generate silver DDLs (cleaned, typed, standardized)
+- [ ] Auto-generate gold DDLs (aggregated, business-ready)
+- [ ] Support Databricks (Delta tables) and Snowflake
+- [ ] Handle schema drift detection and alerts
 
 ### Phase E10: Dynamic Transformation Code
-- [x] Generate dynamic SQL/Spark code for bronze→silver→gold
-- [x] Handle schema changes automatically
-- [x] Support custom transformation logic
-- [x] Integration with Databricks notebooks
+- [ ] Generate dynamic SQL/Spark code for bronze→silver→gold
+- [ ] Handle schema changes automatically
+- [ ] Support custom transformation logic
+- [ ] Integration with Databricks notebooks
 
 ### Phase E11: ADF & Databricks Orchestration
-- [x] ADF pipeline templates that read metadata
-- [x] ADF → Databricks notebook execution
-- [x] Replace dummy execution with real ADF/Databricks calls
-- [x] Support both Airflow and ADF as orchestration engines
+- [ ] ADF pipeline templates that read metadata
+- [ ] ADF → Databricks notebook execution
+- [ ] Replace dummy execution with real ADF/Databricks calls
+- [ ] Support both Airflow and ADF as orchestration engines
 
 ### Phase E12: dbt Integration
-- [x] Generate dbt models from metadata
-- [x] dbt source/model YAML generation
-- [x] dbt test generation from metadata
-- [x] Integrate dbt runs into pipeline execution
+- [ ] Generate dbt models from metadata
+- [ ] dbt source/model YAML generation
+- [ ] dbt test generation from metadata
+- [ ] Integrate dbt runs into pipeline execution
 
 ### Phase E13: Notifications & Alerting
-- [x] Email notifications on process/job/dataset failure
-- [x] Slack webhook notifications
-- [x] Custom webhook support
-- [x] Notification configuration per process/job/dataset
+- [ ] Email notifications on process/job/dataset failure
+- [ ] Slack webhook notifications
+- [ ] Custom webhook support
+- [ ] Notification configuration per process/job/dataset
 
 ### Phase E14: Data Quality Checks
-- [x] Row count validation between layers
-- [x] Null checks on key columns
-- [x] Custom data quality rules per dataset
-- [x] Quality check results stored in execution tracking
-- [x] Quality gate: block silver if bronze quality fails
+- [ ] Row count validation between layers
+- [ ] Null checks on key columns
+- [ ] Custom data quality rules per dataset
+- [ ] Quality check results stored in execution tracking
+- [ ] Quality gate: block silver if bronze quality fails
 
 ### Phase E15: Schema Drift Detection
-- [x] Track expected schema per dataset (etl_dataset_columns table)
-- [x] Compare source schema vs expected on each run
-- [x] Alert on new/removed/changed columns
-- [x] Auto-propose migration scripts
+- [ ] Track expected schema per dataset (etl_dataset_columns table)
+- [ ] Compare source schema vs expected on each run
+- [ ] Alert on new/removed/changed columns
+- [ ] Auto-propose migration scripts
 
 ### Phase E16: Additional Secret Providers
-- [x] Azure Key Vault provider
-- [x] AWS Secrets Manager provider
-- [x] Airflow connections provider
-- [x] HashiCorp Vault provider
+- [ ] Azure Key Vault provider
+- [ ] AWS Secrets Manager provider
+- [ ] Airflow connections provider
+- [ ] HashiCorp Vault provider
 
 ### Phase E17: Audit History
-- [x] `etl_change_log` table for tracking metadata changes
-- [x] Trigger-based or application-level change capture
-- [x] Query: "who changed this dataset's query last week?"
+- [ ] `etl_change_log` table for tracking metadata changes
+- [ ] Trigger-based or application-level change capture
+- [ ] Query: "who changed this dataset's query last week?"
 
 ### Phase E18: CDC & Streaming
-- [x] Kafka source implementation
-- [x] CDC implementation (Debezium integration)
-- [x] Custom incremental change detection
-- [x] Streaming pipeline execution mode
+- [ ] Kafka source implementation
+- [ ] CDC implementation (Debezium integration)
+- [ ] Custom incremental change detection
+- [ ] Streaming pipeline execution mode
